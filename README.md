@@ -1,1 +1,1 @@
-Dummy application for testing Spinnaker/Kubernetes
+Dummy web application for testing Spinnaker/Kubernetes
