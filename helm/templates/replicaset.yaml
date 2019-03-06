@@ -6,6 +6,7 @@ metadata:
   labels:
     app: maggie-k8s-demo
     version: v0
+    label-referencing-env-var: ${I_WILL_BREAK_BECAUSE_SPEL}
   annotations:
     moniker.spinnaker.io/stack: my-stack
     moniker.spinnaker.io/detail: my-detail
