@@ -6,7 +6,7 @@ metadata:
 spec:
   selector:
     app: maggie-k8s-demo
-    version: 0
+    version: v0
   ports:
     - protocol: TCP
       port: 80
@@ -25,18 +25,18 @@ metadata:
   namespace: default
   labels:
     app: maggie-k8s-demo
-    version: 0
+    version: v0
 spec:
   replicas: 3
   selector:
     matchLabels:
       app: maggie-k8s-demo
-      version: 0
+      version: v0
   template:
     metadata:
       labels:
         app: maggie-k8s-demo
-        version: 0
+        version: v0
     spec:
       containers:
         - name: primary
