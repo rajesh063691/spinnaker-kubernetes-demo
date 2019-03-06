@@ -27,6 +27,9 @@ metadata:
   labels:
     app: maggie-k8s-demo
     version: v0
+  annotations:
+    moniker.spinnaker.io/stack: my-stack
+    moniker.spinnaker.io/detail: my-detail
 spec:
   replicas: 3
   selector:
