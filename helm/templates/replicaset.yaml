@@ -1,0 +1,35 @@
+apiVersion: apps/v1beta2
+kind: ReplicaSet
+metadata:
+  name: maggie-k8s-demo
+  namespace: default
+  labels:
+    app: maggie-k8s-demo
+    version: v0
+  annotations:
+    moniker.spinnaker.io/stack: my-stack
+    moniker.spinnaker.io/detail: my-detail
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: maggie-k8s-demo
+      version: v0
+  template:
+    metadata:
+      labels:
+        app: maggie-k8s-demo
+        version: v0
+    spec:
+      containers:
+        - name: primary
+          image: index.docker.io/mneterval/spinnaker-kubernetes-demo
+          ports:
+            - containerPort: 8000
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8000
+          envFrom:
+            - configMapRef:
+                name: maggie-k8s-demo
