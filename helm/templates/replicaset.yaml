@@ -8,6 +8,7 @@ metadata:
     version: v0
     label-referencing-value-override: {{ .Values.myLabel }}
     label-referencing-spel-override: {{ .Values.mySpelValue }}
+    this-is-not-spel: ${HELLO_WORLD}
   annotations:
     moniker.spinnaker.io/stack: my-stack
     moniker.spinnaker.io/detail: my-detail
