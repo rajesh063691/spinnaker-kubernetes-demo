@@ -6,7 +6,6 @@ metadata:
   labels:
     app: maggie-k8s-demo
     version: v0
-    this-is-not-spel: ${HELLO_WORLD}
     label-referencing-value-override: {{ .Values.myLabel }}
     label-referencing-spel-override: {{ .Values.mySpelValue }}
   annotations:
@@ -26,6 +25,7 @@ spec:
     spec:
       containers:
         - name: primary
+          command: ["echo ${HELLO}"]
           image: index.docker.io/mneterval/spinnaker-kubernetes-demo
           ports:
             - containerPort: 8000
