@@ -25,7 +25,9 @@ spec:
     spec:
       containers:
         - name: primary
-          command: ["echo ${HELLO}"]
+          env:
+            - name: my_env_var
+              value: ${not_spel}
           image: index.docker.io/mneterval/spinnaker-kubernetes-demo
           ports:
             - containerPort: 8000
