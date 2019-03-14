@@ -3,3 +3,8 @@ kind: ConfigMap
 metadata:
   name: maggie-k8s-demo
   namespace: default
+data:
+  entrypoint.sh: |-
+    #!/bin/bash
+    GREETING=hello
+    echo ${GREETING}

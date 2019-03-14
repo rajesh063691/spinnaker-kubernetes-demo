@@ -1,0 +1,68 @@
+apiVersion: v1
+data:
+  entrypoint.sh: |-
+    #!/bin/bash
+    GREETING=hello
+    while true; do echo ${GREETING}; sleep 5; done
+kind: ConfigMap
+metadata:
+  name: my-configmap
+  namespace: default
+---
+apiVersion: v1
+data:
+  alive.sh: |-
+    #!/bin/bash
+    IM_ALIVE=alive
+    echo ${IM_ALIVE}
+kind: ConfigMap
+metadata:
+  name: my-configmap-2
+  namespace: default
+---
+apiVersion: apps/v1beta2
+kind: ReplicaSet
+metadata:
+  labels:
+    app: my-app
+  name: my-rs
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+        - command:
+            - /bin/entrypoint.sh
+          image: "ubuntu:14.04"
+          name: my-container
+          readinessProbe:
+            exec:
+              command:
+                - /bin/alive.sh
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          volumeMounts:
+            - mountPath: /bin/entrypoint.sh
+              name: configmap-volume
+              readOnly: true
+              subPath: entrypoint.sh
+            - mountPath: /bin/alive.sh
+              name: configmap-volume-2
+              readOnly: true
+              subPath: alive.sh
+      volumes:
+        - configMap:
+            defaultMode: 448
+            name: my-configmap
+          name: configmap-volume
+        - configMap:
+            defaultMode: 448
+            name: my-configmap-2
+          name: configmap-volume-2
