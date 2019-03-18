@@ -1,42 +1,47 @@
 apiVersion: apps/v1beta2
 kind: ReplicaSet
 metadata:
-  name: maggie-k8s-demo
-  namespace: default
   labels:
-    app: maggie-k8s-demo
-    version: v0
-    label-referencing-value-override: {{ .Values.myLabel }}
+    app: my-app
     label-referencing-spel-override: {{ .Values.mySpelValue }}
-  annotations:
-    moniker.spinnaker.io/stack: my-stack
-    moniker.spinnaker.io/detail: my-detail
+  name: my-rs
+  namespace: default
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: maggie-k8s-demo
-      version: v0
+      app: my-app
   template:
     metadata:
       labels:
-        app: maggie-k8s-demo
-        version: v0
+        app: my-app
     spec:
       containers:
-        - name: primary
-          env:
-            - name: MY_ENV_VAR
-              value: "hello"
-          command: ["echo"]
-          args: ["${MY_ENV_VAR}"]
-          image: index.docker.io/mneterval/spinnaker-kubernetes-demo
-          ports:
-            - containerPort: 8000
+        - command:
+            - /bin/entrypoint.sh
+          image: "ubuntu:14.04"
+          name: my-container
           readinessProbe:
-            httpGet:
-              path: /
-              port: 8000
-          envFrom:
-            - configMapRef:
-                name: maggie-k8s-demo
+            exec:
+              command:
+                - /bin/alive.sh
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          volumeMounts:
+            - mountPath: /bin/entrypoint.sh
+              name: configmap-volume
+              readOnly: true
+              subPath: entrypoint.sh
+            - mountPath: /bin/alive.sh
+              name: configmap-volume-2
+              readOnly: true
+              subPath: alive.sh
+      volumes:
+        - configMap:
+            defaultMode: 448
+            name: my-configmap
+          name: configmap-volume
+        - configMap:
+            defaultMode: 448
+            name: my-configmap-2
+          name: configmap-volume-2
