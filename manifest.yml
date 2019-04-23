@@ -1,46 +1,19 @@
-#kind: Service
-#apiVersion: v1
-#metadata:
-#  name: maggie-k8s-demo
-#  namespace: default
-#spec:
-#  selector:
-#    app: maggie-k8s-demo
-#    version: v0
-#  type: LoadBalancer
-#  ports:
-#    - protocol: TCP
-#      port: 80
-#      targetPort: 8000
-#---
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: maggie-k8s-demo
-  namespace: default
----
 apiVersion: apps/v1beta2
 kind: ReplicaSet
 metadata:
   name: maggie-k8s-demo
   namespace: default
   labels:
-    app: maggie-k8s-demo
-    version: v0
-  annotations:
-    moniker.spinnaker.io/stack: my-stack
-    moniker.spinnaker.io/detail: my-detail
+    applicationName: maggie-k8s-demo
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: maggie-k8s-demo
-      version: v0
+      applicationName: maggie-k8s-demo
   template:
     metadata:
       labels:
-        app: maggie-k8s-demo
-        version: v0
+        applicationName: maggie-k8s-demo
     spec:
       containers:
         - name: primary
@@ -51,6 +24,3 @@ spec:
             httpGet:
               path: /
               port: 8000
-#          envFrom:
-#            - configMapRef:
-#                name: maggie-k8s-demo
