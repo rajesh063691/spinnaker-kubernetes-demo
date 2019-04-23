@@ -44,7 +44,7 @@ spec:
     spec:
       containers:
         - name: primary
-          image: index.docker.io/mneterval/spinnaker-kubernetes-demo
+          image: gcr.io/spinnaker-maggie-2/spinnaker-kubernetes-demo
           ports:
             - containerPort: 8000
           readinessProbe:
