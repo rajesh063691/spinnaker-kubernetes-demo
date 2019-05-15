@@ -5,6 +5,8 @@ metadata:
   namespace: default
   labels:
     applicationName: maggie-k8s-demo
+  annotations:
+    strategy.spinnaker.io/max-version-history: '2'
 spec:
   replicas: 1
   selector:
