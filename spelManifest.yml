@@ -6,7 +6,7 @@ metadata:
   labels:
     applicationName: maggie-k8s-demo
   name: maggie-k8s-demo
-  namespace: '${namespace}'
+  namespace: default
 spec:
   replicas: 1
   selector:
