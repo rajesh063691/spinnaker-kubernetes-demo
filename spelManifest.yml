@@ -1,12 +1,12 @@
 apiVersion: apps/v1beta2
 kind: ReplicaSet
 metadata:
-  name: maggie-k8s-demo
-  namespace: ${ namespace }
-  labels:
-    applicationName: maggie-k8s-demo
   annotations:
     strategy.spinnaker.io/max-version-history: '2'
+  labels:
+    applicationName: maggie-k8s-demo
+  name: maggie-k8s-demo
+  namespace: '${namespace}'
 spec:
   replicas: 1
   selector:
@@ -18,8 +18,8 @@ spec:
         applicationName: maggie-k8s-demo
     spec:
       containers:
-        - name: primary
-          image: gcr.io/spinnaker-maggie/spinnaker-kubernetes-demo
+        - image: gcr.io/spinnaker-maggie/spinnaker-kubernetes-demo
+          name: primary
           ports:
             - containerPort: 8000
           readinessProbe:
