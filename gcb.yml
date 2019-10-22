@@ -1,5 +1,5 @@
 steps:
   - args:
       - /bin/echo
-      - 'Hello, world!'
+      - 'Hello, world! ${#currentStage()["name"].toString()}'
     name: debian
