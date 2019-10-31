@@ -1,0 +1,25 @@
+apiVersion: apps/v1beta2
+kind: ReplicaSet
+metadata:
+  name: maggie-k8s-demo
+  labels:
+    applicationName: maggie-k8s-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      applicationName: maggie-k8s-demo
+  template:
+    metadata:
+      labels:
+        applicationName: maggie-k8s-demo
+    spec:
+      containers:
+      - name: primary
+        image: gcr.io/spinnaker-maggie/spinnaker-kubernetes-demo
+        ports:
+        - containerPort: 8000
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8000
