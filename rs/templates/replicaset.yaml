@@ -1,5 +1,5 @@
 apiVersion: apps/v1beta2
-kind: ReplicaSet
+kind: ReplicaSetINVALID
 metadata:
   name: maggie-k8s-demo
   labels:
