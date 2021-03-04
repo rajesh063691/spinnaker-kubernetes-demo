@@ -1,0 +1,16 @@
+[{
+  "id": "test",
+  "externalid": "test",
+  "attributes": {
+    "roles": [
+      {
+        "type": "test",
+        "id": "test",
+        "value": "test"
+      }
+    ],
+  },
+  "meta": {
+    "resourceType": "test",
+  }
+}]
